@@ -8,12 +8,22 @@ Vagrant.configure("2") do |config|
     v.cpus = 3
   end
   config.vm.network "private_network", ip: "192.168.44.44"
+
   
   config.vm.provision "ansible_local" do |ansible|
     ansible.playbook = "playbooks/clone_roles.yml"
     ansible.extra_vars = {
-      git_repository: "https://github.com/Panda-Academy-Core-2-0/Ansible_roles.git",
+      git_repository: "https://github.com/jakubpanda/Ansible_roles.git",
       git_branch: "main"
+    }
+  end
+  
+  config.vm.provision "ansible_local" do |ansible|
+    ansible.playbook = "playbooks/infrastructure.yml"
+    ansible.extra_vars = {
+      git_repository: "https://github.com/jakubpanda/Infrastructure.git",
+      git_branch: "main"
+
     }
   end
 
